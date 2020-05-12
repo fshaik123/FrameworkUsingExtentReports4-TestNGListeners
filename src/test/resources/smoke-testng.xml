@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Regression Test Suite" verbose="2" parallel="methods" thread-count="1" configfailurepolicy="continue">
-    <test name="Regression Test">
+<suite name="Smoke Test Suite" verbose="2" parallel="methods" thread-count="1" configfailurepolicy="continue">
+    <test name="Smoke Test">
         <classes>
 
         </classes>
