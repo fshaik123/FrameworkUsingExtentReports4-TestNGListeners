@@ -1,15 +1,22 @@
 package com.framework.base;
 
+import com.framework.utils.ReadConfig;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.testng.annotations.*;
 
-public class DriverFactory {
-    public static WebDriver getBrowser(String browserType) {
-        WebDriver driver = null;
+import org.apache.log4j.Logger;
+
+public class DriverFactory extends ReadConfig {
+    public WebDriver driver;
+    public Logger logger;
+    public WebDriver getBrowser(String browserType) {
+
         if (browserType.equalsIgnoreCase("chrome")) {
             //setup the chromedriver using WebDriverManager
             WebDriverManager.chromedriver().setup();
@@ -35,5 +42,18 @@ public class DriverFactory {
         }
         driver.manage().window().maximize();
         return driver;
+    }
+
+    @BeforeTest
+    public void OpenBrowser() {
+        logger = Logger.getLogger("Excel In Testing");
+        PropertyConfigurator.configure("log4j.properties");
+
+        getBrowser(getBrowserName());
+    }
+
+    @AfterTest
+    public void quitBrowser() {
+        driver.quit();
     }
 }
