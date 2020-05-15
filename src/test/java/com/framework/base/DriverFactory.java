@@ -12,9 +12,23 @@ import org.testng.annotations.*;
 
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DriverFactory extends ReadConfig {
     public WebDriver driver;
     public Logger logger;
+
+    protected static Map<String, WebDriver> webDriverMap = new HashMap();
+
+    public DriverFactory() {
+    }
+
+    public static synchronized WebDriver getDriver() {
+        Long threadId = Thread.currentThread().getId();
+        return (WebDriver)webDriverMap.get(threadId + "");
+    }
+
     public WebDriver getBrowser(String browserType) {
 
         if (browserType.equalsIgnoreCase("chrome")) {
@@ -55,5 +69,9 @@ public class DriverFactory extends ReadConfig {
     @AfterTest
     public void quitBrowser() {
         driver.quit();
+    }
+
+    public WebDriver driver() {
+        return this.getDriver();
     }
 }
