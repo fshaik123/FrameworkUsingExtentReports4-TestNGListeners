@@ -3,7 +3,7 @@
 <suite name="Test Suite" verbose="2" parallel="methods" thread-count="1" configfailurepolicy="continue">
 
     <listeners>
-        <listener class-name="com.framework.utils.Reporting"></listener>
+        <listener class-name="com.framework.utils.TestListeners"></listener>
     </listeners>
 
     <test name="Regression Test">
